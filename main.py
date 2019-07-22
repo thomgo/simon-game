@@ -1,12 +1,9 @@
 # coding utf:8
-
-from simon_game.sequence import Sequence
-from simon_game.player import Player
 from simon_game.game import Game
 
 if __name__ == '__main__':
     # Start the object representing the game with a player object and a sequence of number
-    game = Game(Player(), Sequence())
+    game = Game()
 
     game.transition()
     print('Bienvenue sur ce jeux du Simon en version numérique')

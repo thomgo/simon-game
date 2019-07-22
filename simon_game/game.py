@@ -2,15 +2,17 @@
 import os
 import time
 
+from simon_game.sequence import Sequence
+from simon_game.player import Player
 from savings.saving import Saving
 
 class Game():
     """General class to manage the game execution and the related objects.
     player : an instance of the player object
     sequence : an instance of a sequence object"""
-    def __init__(self, player, sequence):
-        self.player = player
-        self.sequence = sequence
+    def __init__(self):
+        self.player = Player()
+        self.sequence = Sequence()
         self.saving = Saving()
 
     def initialize_player(self):

@@ -1,4 +1,6 @@
 # coding: utf8
+import pandas as pd
+from savings.saving import Saving
 
 import os
 import time
@@ -10,11 +12,13 @@ class Game():
     def __init__(self, player, sequence):
         self.player = player
         self.sequence = sequence
+        self.saving = Saving()
 
     def initialize_player(self):
         """Function to ask for the player name and store it in the player object"""
         player_name = input('Quel est votre nom de joueur ? ')
         self.player.name = player_name
+        self.saving.name = player_name
         print("OK {}, il ne nous reste plus qu'un dernier réglage".format(self.player.name))
 
     def initialize_difficulty(self):
@@ -22,6 +26,7 @@ class Game():
         difficulty = ''
         while self.sequence.set_game_difficulty(difficulty.lower()) is False:
             difficulty = input('Quelle difficulté de jeux ? (Facile, Moyen ou Difficile)')
+        self.saving.difficulty = self.sequence.difficulty
         print("Le jeux va démarrer dans quelques instants, préparez-vous à retenir le nombre présenté")
 
     def start_game(self):
@@ -35,9 +40,11 @@ class Game():
                 # if the player fails the loops stops
                 if nombre != self.sequence.numbers[i]:
                     print("Ce n'est pas le bon nombre malheureusement...")
+                    self.save()
                     self.play_again()
                     self.transition()
                     break;
+            self.saving.score += 1
 
     def ask_number(self):
         """Function to ask for a number and check it is valid"""
@@ -65,6 +72,11 @@ class Game():
         if answer == 'o':
             # empty the sequence to start from the beginning
             self.sequence.numbers = []
+            self.saving.score = 0
         else :
             # Will stop the while loop
             self.player.is_right = False
+
+    def save(self):
+        saving = pd.DataFrame([[self.saving.name, self.saving.difficulty, self.saving.score]], columns=['name','difficulty','score'])
+        saving.to_csv('savings/savings.csv', mode='a', header=False)

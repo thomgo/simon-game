@@ -1,9 +1,8 @@
 # coding: utf8
-import pandas as pd
-from savings.saving import Saving
-
 import os
 import time
+
+from savings.saving import Saving
 
 class Game():
     """General class to manage the game execution and the related objects.
@@ -40,7 +39,7 @@ class Game():
                 # if the player fails the loops stops
                 if nombre != self.sequence.numbers[i]:
                     print("Ce n'est pas le bon nombre malheureusement...")
-                    self.save()
+                    self.saving.save()
                     self.play_again()
                     self.transition()
                     break;
@@ -76,7 +75,3 @@ class Game():
         else :
             # Will stop the while loop
             self.player.is_right = False
-
-    def save(self):
-        saving = pd.DataFrame([[self.saving.name, self.saving.difficulty, self.saving.score]], columns=['name','difficulty','score'])
-        saving.to_csv('savings/savings.csv', mode='a', header=False)

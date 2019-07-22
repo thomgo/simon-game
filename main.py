@@ -1,4 +1,4 @@
-# coding utf:8
+# coding: utf-8
 from simon_game.game import Game
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-# coding: utf8
+# coding: utf-8
 import os
 import time
 import random
@@ -40,4 +40,4 @@ class Sequence():
             self.difficulty = self.difficulty_levels.index(level) + 1
             self.numbers_range = self.numbers_ranges[self.difficulty - 1]
         except:
-            return False 
+            return False
